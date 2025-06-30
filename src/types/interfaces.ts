@@ -26,6 +26,10 @@ export interface MovieDetailsProps extends BaseMovieProps {
     id: number;
     name: string;
   }[];
+  production_countries: {
+    iso_3166_1: string;
+    name: string;
+  }[];
 }
 
 export interface MovieImage {
