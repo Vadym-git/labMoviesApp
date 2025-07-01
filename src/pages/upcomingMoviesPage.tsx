@@ -1,4 +1,4 @@
-// this page was fixed in one of the prviouse commit
+// this page was fixed and upcoming movies page to use caching already added in on of the previouse step
 import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getUpcomingMovies } from "../api/tmdb-api";
