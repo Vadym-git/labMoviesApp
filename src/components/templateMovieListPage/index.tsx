@@ -13,7 +13,7 @@ const styles = {
 const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = ({
   movies,
   title,
-  selectFavourite,
+  action,
 }) => {
   return (
     <Grid container sx={styles.root}>
@@ -21,10 +21,7 @@ const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = ({
         <Header title={title} />
       </Grid>
       <Grid item container spacing={5}>
-        <MovieList
-          selectFavourite={selectFavourite}
-          movies={movies}
-        ></MovieList>
+        <MovieList action={action} movies={movies}></MovieList>
       </Grid>
     </Grid>
   );
