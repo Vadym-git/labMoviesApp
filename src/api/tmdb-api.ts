@@ -2,10 +2,18 @@ export const getMovies = () => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${
       import.meta.env.VITE_TMDB_KEY
-    }&language=en-US&include_adult=false&page=1`
+    }&language=en-US&include_adult=false&include_video=false&page=1`
   )
-    .then((res) => res.json())
-    .then((json) => json.results);
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch movies. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
 };
 
 export const getUpcomingMovies = () => {
@@ -23,7 +31,18 @@ export const getMovie = (id: string) => {
     `https://api.themoviedb.org/3/movie/${id}?api_key=${
       import.meta.env.VITE_TMDB_KEY
     }`
-  ).then((res) => res.json());
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `Failed to get movie data. Response status: ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
 };
 
 export const getGenres = () => {
@@ -32,8 +51,16 @@ export const getGenres = () => {
       import.meta.env.VITE_TMDB_KEY +
       "&language=en-US"
   )
-    .then((res) => res.json())
-    .then((json) => json.genres);
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch genres. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
 };
 
 export const getMovieImages = (id: string | number) => {
@@ -42,8 +69,16 @@ export const getMovieImages = (id: string | number) => {
       import.meta.env.VITE_TMDB_KEY
     }`
   )
-    .then((res) => res.json())
-    .then((json) => json.posters);
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("failed to fetch images");
+      }
+      return response.json();
+    })
+    .then((json) => json.posters)
+    .catch((error) => {
+      throw error;
+    });
 };
 
 export const getMovieReviews = (id: string | number) => {
