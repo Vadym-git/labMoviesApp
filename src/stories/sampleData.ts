@@ -8,6 +8,7 @@ export default {
     backdrop_path: "/d8duYyyC9J5T825Hg7grmaabfxQ.jpg",
   },
   budget: 200000000,
+  genre_ids: [28, 12, 14, 878],
   genres: [
     {
       id: 14,
