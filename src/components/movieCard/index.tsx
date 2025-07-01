@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -16,6 +16,7 @@ import { BaseMovieProps } from "../../types/interfaces";
 import { Link } from "react-router-dom";
 import { MouseEvent } from "react";
 import Avatar from "@mui/material/Avatar";
+import { MoviesContext } from "../../contexts/moviesContext";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -27,19 +28,23 @@ const styles = {
 
 interface MovieCardProps {
   movie: BaseMovieProps;
-  selectFavourite: (movieId: number) => void;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, selectFavourite }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+  const { favourites, addToFavourites } = useContext(MoviesContext);
+
+  const isFavourite = favourites.find((id) => id === movie.id) ? true : false;
+
   const handleAddToFavourite = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    selectFavourite(movie.id);
+    addToFavourites(movie);
   };
+
   return (
     <Card sx={styles.card}>
       <CardHeader
         avatar={
-          movie.favourite ? (
+          isFavourite ? ( //CHANGED
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
