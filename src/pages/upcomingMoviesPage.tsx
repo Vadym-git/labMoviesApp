@@ -1,3 +1,4 @@
+// this page was fixed in one of the prviouse commit
 import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getUpcomingMovies } from "../api/tmdb-api";
