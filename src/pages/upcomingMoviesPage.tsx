@@ -1,5 +1,4 @@
-// this page was fixed and upcoming movies page to use caching already added in on of the previouse step
-import React from "react";
+import React, { useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getUpcomingMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -11,6 +10,7 @@ import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import { MoviesContext } from "../contexts/moviesContext";
 
 const titleFiltering = {
   name: "title",
@@ -28,6 +28,9 @@ const UpcomingMoviesPage: React.FC = () => {
     "upcoming",
     getUpcomingMovies
   );
+
+  const { addToMustWatch } = useContext(MoviesContext);
+
   const { filterValues, setFilterValues, filterFunction } = useFiltering([
     titleFiltering,
     genreFiltering,
@@ -59,7 +62,12 @@ const UpcomingMoviesPage: React.FC = () => {
         title="Upcoming Movies"
         movies={displayedMovies}
         action={(movie: BaseMovieProps) => {
-          return <PlaylistAddIcon />;
+          return (
+            <PlaylistAddIcon
+              onClick={() => addToMustWatch(movie)}
+              style={{ cursor: "pointer" }}
+            />
+          );
         }}
       />
       <MovieFilterUI
@@ -70,4 +78,5 @@ const UpcomingMoviesPage: React.FC = () => {
     </>
   );
 };
+
 export default UpcomingMoviesPage;
